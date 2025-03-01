@@ -1432,12 +1432,12 @@ MonoBehaviour:
   runAcceleration: 14
   runDeacceleration: 10
   airAcceleration: 2
-  airDecceleration: 2
+  airDecceleration: 1
   airControl: 0.3
   sideStrafeAcceleration: 62.5
   sideStrafeSpeed: 1.25
   jumpSpeed: 8
-  holdJumpToBhop: 0
+  holdJumpToBhop: 1
   style:
     m_Name: 
     m_Normal:
