@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c19bf57b1958c45b4f41b836b5a464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrain: {fileID: 0}
+  terrains: []
   maxMountainHeight: 0.3
   mountainSize: 75
   heightChangeSpeed: 0.1
@@ -840,7 +840,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1169526794}
   - {fileID: 1935435444}
-  - {fileID: 489721056}
   - {fileID: 17984176}
+  - {fileID: 489721056}
   - {fileID: 569768512}
   - {fileID: 1456838238}
