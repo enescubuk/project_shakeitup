@@ -6,50 +6,110 @@ public class PlatformManager : MonoBehaviour
     public GameObject BlockPrefab;
     public List<GameObject> Blocks = new List<GameObject>();
 
-    public float NextBlockDistance = 5f; // Blokların arasındaki mesafe
+    public float NextBlockDistance;
+    public int currentBlockIndex = 0;
+
+    public GameObject Player;
+    private MovementController playerMovement;
 
     void Start()
     {
-        if (Blocks.Count > 1)
+        Player = GameObject.FindGameObjectWithTag("Player");
+        if (Player != null)
         {
-            float initialDistance = Blocks[1].transform.position.z - Blocks[0].transform.position.z;
+            playerMovement = Player.GetComponent<MovementController>();
         }
+
+        NextBlockDistance += BlockPrefab.transform.localScale.z;
 
         for (int i = 0; i < 15; i++)
         {
-            SpawnNextBlock();
+            SpawnFirstBlocks();
         }
     }
 
-    public void SpawnNextBlock()
+    private void SpawnFirstBlocks()
     {
-        if (Blocks.Count == 0) return;
+        Vector3 spawnPos = Blocks.Count > 0 ? Blocks[Blocks.Count - 1].transform.position : transform.position;
 
-        // Son blok referansını al
-        GameObject lastBlock = Blocks[Blocks.Count - 1];
-        Vector3 lastBlockPos = lastBlock.transform.position;
-
-        // 45 derecelik koni içinde rastgele bir açı seç (-22.5 ile 22.5 arasında)
         float randomAngle = Random.Range(-22.5f, 22.5f);
-
-        // Açıyı radyana çevir
         float angleRad = randomAngle * Mathf.Deg2Rad;
 
-        // Yeni bloğun konumunu hesapla
-        float offsetX = Mathf.Sin(angleRad) * NextBlockDistance; // X ekseninde kayma
-        float offsetZ = Mathf.Cos(angleRad) * NextBlockDistance; // Z ekseninde ileri hareket
+        float offsetX = Mathf.Sin(angleRad) * NextBlockDistance;
+        float offsetZ = Mathf.Cos(angleRad) * NextBlockDistance;
 
-        Vector3 newBlockPos = new Vector3(
-            lastBlockPos.x + offsetX, 
-            lastBlockPos.y, 
-            lastBlockPos.z + offsetZ
-        );
-
-        // Yeni bloğun yönünü ayarla (gittiği açıyı baz alarak)
+        Vector3 newBlockPos = new Vector3(spawnPos.x + offsetX, spawnPos.y, spawnPos.z + offsetZ);
         Quaternion newBlockRotation = Quaternion.LookRotation(new Vector3(offsetX, 0, offsetZ));
 
-        // Yeni bloğu oluştur ve listeye ekle
-        GameObject newBlock = Instantiate(BlockPrefab, newBlockPos, newBlockRotation);
+        GameObject newBlock = Instantiate(BlockPrefab, newBlockPos, newBlockRotation, transform);
         Blocks.Add(newBlock);
+    }
+
+    private void SetNextBlock()
+    {
+        if (currentBlockIndex < 2 || Blocks.Count < 2) return;
+
+        GameObject referenceBlock = Blocks[Blocks.Count - 1];
+        Vector3 referencePos = referenceBlock.transform.position;
+
+        float randomAngle = Random.Range(-22.5f, 22.5f);
+        float angleRad = randomAngle * Mathf.Deg2Rad;
+
+        float offsetX = Mathf.Sin(angleRad) * NextBlockDistance;
+        float offsetZ = Mathf.Cos(angleRad) * NextBlockDistance;
+
+        Vector3 newBlockPos = new Vector3(referencePos.x + offsetX, referencePos.y, referencePos.z + offsetZ);
+        Quaternion newBlockRotation = Quaternion.LookRotation(new Vector3(offsetX, 0, offsetZ));
+
+        GameObject recycledBlock = Blocks[0];
+        recycledBlock.transform.position = newBlockPos;
+        recycledBlock.transform.rotation = newBlockRotation;
+
+        Blocks.RemoveAt(0);
+        Blocks.Add(recycledBlock);
+    }
+
+    internal void ControlBlock(GameObject _block)
+    {
+        for (int i = 0; i < Blocks.Count; i++)
+        {
+            if (Blocks[i] == _block)
+            {
+                if (currentBlockIndex != i)
+                {
+                    currentBlockIndex = i;
+                    SetNextBlock();
+                }
+                break;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (playerMovement == null) return;
+
+        float currentSpeed = playerMovement.GetCurrentSpeed();
+        AdjustNextBlockDistance(currentSpeed);
+    }
+
+    private void AdjustNextBlockDistance(float speed)
+    {
+        if (speed > 21.5f)
+        {
+            NextBlockDistance = 14f;
+        }
+        else if (speed > 17.5f)
+        {
+            NextBlockDistance = 12.5f;
+        }
+        else if (speed > 12.5f)
+        {
+            NextBlockDistance = 10f;
+        }
+        else
+        {
+            NextBlockDistance = 9f;
+        }
     }
 }

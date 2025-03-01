@@ -38,7 +38,7 @@ struct Cmd
     public float upMove;
 }
 
-public class movementtryin : MonoBehaviour
+public class MovementController : MonoBehaviour
 {
     public Transform playerView;     // Camera
     public float playerViewYOffset = 0.6f; // The height at which the camera is bound to
@@ -90,6 +90,14 @@ public class movementtryin : MonoBehaviour
 
     // Player commands, stores wish commands that the player asks for (Forward, back, jump, etc)
     private Cmd _cmd;
+
+    public float GetCurrentSpeed()
+{
+    Vector3 ups = _controller.velocity;
+    ups.y = 0;
+    return Mathf.Round(ups.magnitude * 100) / 100;
+}
+
 
     private void Start()
     {
