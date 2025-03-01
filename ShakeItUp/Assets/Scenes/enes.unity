@@ -1332,7 +1332,6 @@ GameObject:
   - component: {fileID: 1467015979}
   - component: {fileID: 1467015978}
   - component: {fileID: 1467015977}
-  - component: {fileID: 1467015980}
   - component: {fileID: 1467015981}
   - component: {fileID: 1467015982}
   m_Layer: 0
@@ -1404,33 +1403,13 @@ Transform:
   m_GameObject: {fileID: 1467015975}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.3215446, y: 1.35, z: 4.430146}
+  m_LocalPosition: {x: 0.16, y: 4.99, z: 33.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1900158437}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1467015980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467015975}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8c6a6f9cf4e9504497e4bceb5be1b29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 0
-  sensitivityX: 15
-  sensitivityY: 15
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
-  invertY: 0
 --- !u!114 &1467015981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1445,8 +1424,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerView: {fileID: 0}
   playerViewYOffset: 0.6
-  xMouseSensitivity: 30
-  yMouseSensitivity: 30
+  xMouseSensitivity: 100
+  yMouseSensitivity: 100
   gravity: 20
   friction: 6
   moveSpeed: 7
@@ -1455,10 +1434,10 @@ MonoBehaviour:
   airAcceleration: 2
   airDecceleration: 2
   airControl: 0.3
-  sideStrafeAcceleration: 50
-  sideStrafeSpeed: 1
+  sideStrafeAcceleration: 62.5
+  sideStrafeSpeed: 1.25
   jumpSpeed: 8
-  holdJumpToBhop: 1
+  holdJumpToBhop: 0
   style:
     m_Name: 
     m_Normal:
@@ -2131,6 +2110,8 @@ SceneRoots:
   - {fileID: 1979621174}
   - {fileID: 1051268626}
   - {fileID: 535224726}
+  - {fileID: 48024549}
+  - {fileID: 290151151}
   - {fileID: 241155142}
   - {fileID: 399270193}
   - {fileID: 1823819746}
@@ -2139,5 +2120,3 @@ SceneRoots:
   - {fileID: 1036573024}
   - {fileID: 468927798}
   - {fileID: 1877452800}
-  - {fileID: 48024549}
-  - {fileID: 290151151}

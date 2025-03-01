@@ -187,18 +187,17 @@ public class movementtryin : MonoBehaviour
      */
     private void QueueJump()
     {
-        if(holdJumpToBhop)
+        if (holdJumpToBhop)
         {
-            wishJump = Input.GetButton("Jump");
+            wishJump = Input.GetButton("Jump") || Input.GetAxis("Mouse ScrollWheel") < 0;
             return;
         }
 
-        if(Input.GetButtonDown("Jump") && !wishJump)
+        if ((Input.GetButtonDown("Jump") || Input.GetAxis("Mouse ScrollWheel") < 0) && !wishJump)
             wishJump = true;
-        if(Input.GetButtonUp("Jump"))
+        if (Input.GetButtonUp("Jump"))
             wishJump = false;
     }
-
     /**
      * Execs when the player is in the air
     */
