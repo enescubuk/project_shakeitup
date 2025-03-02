@@ -1,31 +1,3 @@
-/*
- * - Edited by PrzemyslawNowaczyk (11.10.17)
- *   -----------------------------
- *   Deleting unused variables
- *   Changing obsolete methods
- *   Changing used input methods for consistency
- *   -----------------------------
- *
- * - Edited by NovaSurfer (31.01.17).
- *   -----------------------------
- *   Rewriting from JS to C#
- *   Deleting "Spawn" and "Explode" methods, deleting unused varibles
- *   -----------------------------
- * Just some side notes here.
- *
- * - Should keep in mind that idTech's cartisian plane is different to Unity's:
- *    Z axis in idTech is "up/down" but in Unity Z is the local equivalent to
- *    "forward/backward" and Y in Unity is considered "up/down".
- *
- * - Code's mostly ported on a 1 to 1 basis, so some naming convensions are a
- *   bit fucked up right now.
- *
- * - UPS is measured in Unity units, the idTech units DO NOT scale right now.
- *
- * - Default values are accurate and emulates Quake 3's feel with CPM(A) physics.
- *
- */
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +12,9 @@ struct Cmd
 
 public class MovementController : MonoBehaviour
 {
+
+    public int streakCounter = 0;
+    
     public Transform playerView;     // Camera
     public float playerViewYOffset = 0.6f; // The height at which the camera is bound to
     public float xMouseSensitivity = 30.0f;
@@ -131,7 +106,13 @@ public class MovementController : MonoBehaviour
             fps = Mathf.Round(frameCount / dt);
             frameCount = 0;
             dt -= 1.0f / fpsDisplayRate;
-                 }
+        }
+        if(GetCurrentSpeed() < 7.5f)
+    {
+        streakCounter = 0;
+        SoundManager.Instance.CloseDrums();
+        SoundManager.Instance.CloseMusic();
+    }
         /* Ensure that the cursor is locked into the screen */
         if (Cursor.lockState != CursorLockMode.Locked) {
             if (Input.GetButtonDown("Fire1"))
@@ -319,10 +300,24 @@ public class MovementController : MonoBehaviour
         playerVelocity.y = -gravity * Time.deltaTime;
 
         if(wishJump)
+    {
+        // Yeni eklenen streak artırma
+        if(GetCurrentSpeed() > 7.5f)
         {
-            playerVelocity.y = jumpSpeed;
-            wishJump = false;
+            streakCounter++;
+            if (streakCounter > 5)
+            {
+                SoundManager.Instance.OpenDrums();
+            }
+            if (streakCounter > 10)
+            {
+                SoundManager.Instance.OpenMusic();
+            }
         }
+        
+        playerVelocity.y = jumpSpeed;
+        wishJump = false;
+    }
     }
 
     /**
@@ -382,6 +377,6 @@ public class MovementController : MonoBehaviour
         var ups = _controller.velocity;
         ups.y = 0;
         GUI.Label(new Rect(0, 15, 400, 100), "Speed: " + Mathf.Round(ups.magnitude * 100) / 100 + "ups", style);
-        GUI.Label(new Rect(0, 30, 400, 100), "Top Speed: " + Mathf.Round(playerTopVelocity * 100) / 100 + "ups", style);
+        GUI.Label(new Rect(0, 45, 400, 100), "Streak: " + streakCounter, style);
     }
 }
