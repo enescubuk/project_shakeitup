@@ -2184,11 +2184,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 322812352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -28.599976, y: -22.5}
+  m_SizeDelta: {x: 309.4829, y: 109.2562}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &51716528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2209,7 +2209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: aaaaaaaaa
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fcf01ead1cf9da148bc127fb46586e33, type: 2}
   m_sharedMaterial: {fileID: -2008402073313335927, guid: fcf01ead1cf9da148bc127fb46586e33, type: 2}
@@ -2236,14 +2236,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -10933,8 +10933,8 @@ Transform:
   m_GameObject: {fileID: 279103343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 320.4}
-  m_LocalScale: {x: 12.8, y: 5.9356, z: 64.65}
+  m_LocalPosition: {x: 0, y: -19.7, z: 320.4}
+  m_LocalScale: {x: 16, y: 5.9356, z: 64.65}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -31703,6 +31703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: db9209ca66445e74883407a9da256d4f, type: 2}
+  scoreText: {fileID: 51716528}
 --- !u!1001 &830562064
 PrefabInstance:
   m_ObjectHideFlags: 0

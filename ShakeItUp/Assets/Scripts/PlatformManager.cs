@@ -22,7 +22,7 @@ public class PlatformManager : MonoBehaviour
 
         NextBlockDistance += BlockPrefab.transform.localScale.z;
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 300; i++)
         {
             SpawnFirstBlocks();
         }
@@ -47,7 +47,6 @@ public class PlatformManager : MonoBehaviour
 
     private void SetNextBlock()
     {
-        if (currentBlockIndex < 2 || Blocks.Count < 2) return;
 
         GameObject referenceBlock = Blocks[Blocks.Count - 1];
         Vector3 referencePos = referenceBlock.transform.position;
@@ -78,7 +77,10 @@ public class PlatformManager : MonoBehaviour
                 if (currentBlockIndex != i)
                 {
                     currentBlockIndex = i;
-                    SetNextBlock();
+                    if (currentBlockIndex != 0)
+                    {
+                        SetNextBlock();
+                    }
                 }
                 break;
             }

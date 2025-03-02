@@ -305,14 +305,16 @@ public class MovementController : MonoBehaviour
         if(GetCurrentSpeed() > 7.5f)
         {
             streakCounter++;
-            if (streakCounter > 5)
+            if (streakCounter >= 5)
             {
                 SoundManager.Instance.OpenDrums();
             }
-            if (streakCounter > 10)
+            if (streakCounter >= 10)
             {
                 SoundManager.Instance.OpenMusic();
             }
+
+            SoundManager.Instance.Score(GetCurrentSpeed(),streakCounter);
         }
         
         playerVelocity.y = jumpSpeed;
