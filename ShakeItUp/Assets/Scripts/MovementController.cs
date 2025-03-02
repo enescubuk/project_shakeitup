@@ -12,7 +12,7 @@ struct Cmd
 
 public class MovementController : MonoBehaviour
 {
-
+    public ParticleSystem speedParticles; // Particle system referansı
     public int streakCounter = 0;
     
     public Transform playerView;     // Camera
@@ -98,6 +98,25 @@ public class MovementController : MonoBehaviour
 
     private void Update()
     {
+        // Mevcut hız değeri
+    float currentSpeed = GetCurrentSpeed();
+
+    // Hız 15'i geçerse particle'ı başlat, geçmezse durdur
+    if (currentSpeed > 15f)
+    {
+        if (!speedParticles.isPlaying)
+        {
+            speedParticles.Play();  // Particle'ı başlat
+        }
+    }
+    else
+    {
+        if (speedParticles.isPlaying)
+        {
+            speedParticles.Stop();  // Particle'ı durdur
+        }
+    }
+
         // Do FPS calculation
         frameCount++;
         dt += Time.deltaTime;
