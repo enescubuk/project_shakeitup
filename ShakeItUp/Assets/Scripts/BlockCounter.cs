@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class BlockCounter : MonoBehaviour
 {
@@ -10,7 +11,6 @@ void OnControllerColliderHit(ControllerColliderHit hit)
         if (hit.collider.CompareTag("Block"))
         {
             hit.gameObject.GetComponentInParent<PlatformManager>().ControlBlock(hit.gameObject);
-            Debug.Log(11111111111111111111);    
         }
     }
 
