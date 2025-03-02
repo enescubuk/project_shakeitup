@@ -6,8 +6,13 @@ public class BlockCounter : MonoBehaviour
     {
         if (hit.collider.CompareTag("Block"))
         {
-            Debug.Log(hit.gameObject.transform.parent);
             hit.gameObject.GetComponentInParent<PlatformManager>().ControlBlock(hit.gameObject);
+        }
+
+        if (hit.collider.CompareTag("Plane"))
+        {
+            int sceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex);
         }
     }
 }
