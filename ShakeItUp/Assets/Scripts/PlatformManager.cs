@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; 
 
 public class PlatformManager : MonoBehaviour
 {
@@ -70,46 +69,23 @@ public class PlatformManager : MonoBehaviour
     }
 
     internal void ControlBlock(GameObject _block)
-{
-    for (int i = 0; i < Blocks.Count; i++)
     {
-        if (Blocks[i] == _block)
+        for (int i = 0; i < Blocks.Count; i++)
         {
-            if (currentBlockIndex != i)
+            if (Blocks[i] == _block)
             {
-                currentBlockIndex = i;
-                if (currentBlockIndex != 0)
+                if (currentBlockIndex != i)
                 {
-                    SetNextBlock();
+                    currentBlockIndex = i;
+                    if (currentBlockIndex != 0)
+                    {
+                        SetNextBlock();
+                    }
                 }
-
-                // **Yanıp sönme efekti ekle**
-                FlashBlock(_block);
+                break;
             }
-            break;
         }
     }
-}
-
-private void FlashBlock(GameObject block)
-{
-    MeshRenderer renderer = block.GetComponent<MeshRenderer>();
-
-    if (renderer != null)
-    {
-        Color originalColor = renderer.material.color;
-
-        // **Rengi yarım saniye boyunca transparan yap**
-        renderer.material.DOColor(new Color(originalColor.r, originalColor.g, originalColor.b, 0), 0.25f)
-            .SetLoops(2, LoopType.Yoyo) // 2 kez ileri geri oynasın (yanıp sönme)
-            .OnComplete(() =>
-            {
-                // **Orijinal renge geri dön**
-                renderer.material.color = originalColor;
-            });
-    }
-}
-
 
     private void Update()
     {
